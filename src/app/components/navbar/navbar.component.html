@@ -1,25 +1,37 @@
 <div class="container">
   <div class="menu">
-    <div>
-      <p class="menu__title">Gerenciador de Votação</p>
+    <div class="menu__title">
+      <p>Gerenciador de Votação</p>
     </div>
+    <mat-icon
+      class="menu__mobile"
+      aria-label="menu"
+      fontIcon="menu"
+      (click)="toggleMenu()"
+    ></mat-icon>
     <div class="menu__nav">
-      <ul class="menu__nav__lista">
-        <li class="menu__nav__lista__item">
-          <a class="menu__nav__lista__item__name" href="#">Home</a>
-        </li>
-        <li class="menu__nav__lista__item">
-          <a class="menu__nav__lista__item__name" href="#">Cadastrar pauta</a>
-        </li>
-        <li class="menu__nav__lista__item">
-          <a class="menu__nav__lista__item__name" href="#"
-            >Sessões de votação</a
-          >
-        </li>
-        <li class="menu__nav__lista__item">
-          <a class="menu__nav__lista__item__name" href="#">Entrar</a>
-        </li>
-      </ul>
+      <nav class="menu__nav__navigation" #menuNav>
+        <ul class="menu__nav__navigation__list">
+          <li class="menu__nav__navigation__list__item">
+            <a class="menu__nav__navigation__list__item__name" href="#">Home</a>
+          </li>
+          <li class="menu__nav__navigation__list__item">
+            <a class="menu__nav__navigation__list__item__name" href="#"
+              >Cadastrar pauta</a
+            >
+          </li>
+          <li class="menu__nav__navigation__list__item">
+            <a class="menu__nav__navigation__list__item__name" href="#"
+              >Sessões de votação</a
+            >
+          </li>
+          <li class="menu__nav__navigation__list__item">
+            <a class="menu__nav__navigation__list__item__name" href="#"
+              >Entrar</a
+            >
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>
