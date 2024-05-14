@@ -2,14 +2,41 @@
   padding: 40px;
 
   .list-pautas {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 
     &__title {
       font-size: 30px;
-      font-weight: 900;
-      font-family: "Montserrat"
+      font-weight: 600;
+      font-family: "Montserrat";
+      color: #221f52;
+    }
+
+    &__cards {
+      padding: 30px 0 0 40px;
+      display: flex;
+      flex-wrap: wrap;
+
+      &__card {
+        margin: 24px 24px 24px 24px;
+        width: 500px;
+        height: 150px;
+        background-color: #221f52;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+
+        &__title {
+          color: #ffff;
+          font-size: 30px;
+          font-family: "Montserrat";
+          font-weight: 500;
+        }
+      }
     }
   }
 }
