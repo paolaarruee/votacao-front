@@ -4,6 +4,17 @@
     <div class="list-pautas__cards">
       <div class="list-pautas__cards__card" *ngFor="let pauta of pautas">
         <p class="list-pautas__cards__card__title">{{ pauta.titulo }}</p>
+        <p class="list-pautas__cards__card__description">
+          {{ pauta.descricao }}
+        </p>
+        <div class="list-pautas__cards__card__buttons">
+          <button class="list-pautas__cards__card__buttons__details">
+            Detalhes
+          </button>
+          <button class="list-pautas__cards__card__buttons__delete">
+            Excluir
+          </button>
+        </div>
       </div>
     </div>
     <mat-paginator
