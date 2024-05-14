@@ -1,9 +1,9 @@
 export interface SessaoVotacao {
-  id: number;
+  id?: number;
   pautaId: number;
   nomeSessao: string;
-  dataInicio: Date;
+  dataInicio: string;
   duracaoMinutos?: number;
   votos?: number;
-  dataTermino?: Date;
+  dataTermino?: string;
 }

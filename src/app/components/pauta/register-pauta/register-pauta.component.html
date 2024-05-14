@@ -1,1 +1,68 @@
-<p>register-pauta works!</p>
+<div class="container">
+  <div class="form">
+    <div>
+      <h1 class="form__title">Cadastrar Pauta</h1>
+    </div>
+    <div class="form__register">
+      <form [formGroup]="registerPauta" class="form__register">
+        <label for="titulo-pauta" class="form__register__label"
+          >Titulo da Pauta:
+        </label>
+        <input
+          class="form__register__input"
+          id="titulo-pauta"
+          type="text"
+          formControlName="titulo"
+        />
+
+        <label for="descricao-pauta" class="form__register__label"
+          >Descrição da Pauta:
+        </label>
+        <input
+          class="form__register__input"
+          id="descricao-pauta"
+          type="text"
+          formControlName="descricao"
+        />
+
+        <label for="nome-sessao" class="form__register__label"
+          >Nome da sessão:
+        </label>
+        <input
+          class="form__register__input"
+          id="nome-sessao"
+          type="text"
+          formControlName="nomeSessao"
+        />
+
+        <label for="data-inicio" class="form__register__label"
+          >Data inicio:
+        </label>
+        <input
+          class="form__register__input-date"
+          id="data-inicio"
+          type="date"
+          formControlName="dataInicio"
+        />
+
+        <label for="duracao-sessao" class="form__register__label"
+          >Duração da sessão
+        </label>
+        <input
+          class="form__register__input"
+          id="duracao-sessao"
+          type="number"
+          formControlName="duracaoMinutos"
+        />
+      </form>
+    </div>
+    <button
+      class="form__button"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!registerPauta.valid"
+    >
+      Enviar
+    </button>
+  </div>
+</div>
