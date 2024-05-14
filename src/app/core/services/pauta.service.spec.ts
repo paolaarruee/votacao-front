@@ -1,64 +1,70 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { PautaService } from './pauta.service';
-import { environment } from 'src/app/environments/environment';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { environment } from 'src/app/environments/environment';
 
 describe('PautaService', () => {
   let service: PautaService;
-  let httpMock: HttpTestingController;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [PautaService]
+      providers: [PautaService],
     });
     service = TestBed.inject(PautaService);
-    httpMock = TestBed.inject(HttpTestingController);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify(); // Verifica se não há solicitações pendentes
+    httpTestingController.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch pautas', () => {
-    const mockPautas: Pauta[] = [{
-      id: 1, descricao: 'Pauta 1',
-      titulo: ''
-    }, {
-      id: 2, descricao: 'Pauta 2',
-      titulo: ''
-    }];
+  it('deve retornar pautas e totalCount corretos', () => {
+    const page = 1;
+    const limit = 10;
+    const mockPautas: Pauta[] = [
+      { id: 1, titulo: 'Pauta 1', descricao: 'Descricao Pauta 1' },
+      { id: 2, titulo: 'Pauta 2', descricao: 'Descricao Pauta 2' },
+    ];
+    const mockTotalCount = 20;
 
-    service.getPautas().subscribe(pautas => {
-      expect(pautas.length).toBe(2);
-      expect(pautas).toEqual(mockPautas);
+    service.getPautas(page, limit).subscribe((result) => {
+      expect(result.pautas).toEqual(mockPautas);
+      expect(result.totalCount).toBe(mockTotalCount);
     });
 
-    const req = httpMock.expectOne(`${environment.API_URL}pautas`);
-    expect(req.request.method).toBe('GET');
-    req.flush(mockPautas);
+    const req = httpTestingController.expectOne(
+      `${environment.API_URL}pautas?page=${page}&limit=${limit}`
+    );
+    expect(req.request.method).toEqual('GET');
+
+    req.flush(mockPautas, {
+      headers: { 'x-total-count': mockTotalCount.toString() },
+    });
   });
 
   it('should create pauta', () => {
     const newPauta: Pauta = {
-      id: 1, descricao: 'Nova Pauta',
-      titulo: ''
+      id: 1,
+      descricao: 'Nova Pauta',
+      titulo: '',
     };
 
-    service.createPauta(newPauta).subscribe(pauta => {
+    service.createPauta(newPauta).subscribe((pauta) => {
       expect(pauta).toEqual(newPauta);
     });
 
-    const req = httpMock.expectOne(`${environment.API_URL}pauta`);
+    const req = httpTestingController.expectOne(`${environment.API_URL}pauta`);
     expect(req.request.method).toBe('POST');
     req.flush(newPauta);
   });
-
-
 });

@@ -7,10 +7,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [HomeComponent, ListaPautasComponent, RegisterPautaComponent],
-  imports: [CommonModule, MatCardModule, MatButtonModule, FormsModule, ReactiveFormsModule ],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatPaginatorModule,
+  ],
 
   exports: [HomeComponent, ListaPautasComponent, RegisterPautaComponent],
 })
