@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { PautaService } from './pauta.service';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { environment } from 'src/app/environments/environment';
 
 describe('PautaService', () => {
   let service: PautaService;
@@ -42,12 +43,28 @@ describe('PautaService', () => {
     });
 
     const req = httpTestingController.expectOne(
-      `http://localhost:3333/pautas?page=${page}&limit=${limit}`
+      `${environment.API_URL}pautas?page=${page}&limit=${limit}`
     );
     expect(req.request.method).toEqual('GET');
 
     req.flush(mockPautas, {
       headers: { 'x-total-count': mockTotalCount.toString() },
     });
+  });
+
+  it('should create pauta', () => {
+    const newPauta: Pauta = {
+      id: 1,
+      descricao: 'Nova Pauta',
+      titulo: '',
+    };
+
+    service.createPauta(newPauta).subscribe((pauta) => {
+      expect(pauta).toEqual(newPauta);
+    });
+
+    const req = httpTestingController.expectOne(`${environment.API_URL}pauta`);
+    expect(req.request.method).toBe('POST');
+    req.flush(newPauta);
   });
 });
