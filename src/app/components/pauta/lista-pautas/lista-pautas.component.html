@@ -1,29 +1,47 @@
 <div class="container">
   <div class="list-pautas">
-    <p class="list-pautas__title">Lista de Pautas</p>
-    <div class="list-pautas__cards">
-      <div class="list-pautas__cards__card" *ngFor="let pauta of pautas">
-        <p class="list-pautas__cards__card__title">{{ pauta.titulo }}</p>
-        <p class="list-pautas__cards__card__description">
-          {{ pauta.descricao }}
-        </p>
-        <div class="list-pautas__cards__card__buttons">
-          <button class="list-pautas__cards__card__buttons__details">
-            Detalhes
-          </button>
-          <button class="list-pautas__cards__card__buttons__delete">
-            Excluir
-          </button>
+    <ng-container *ngIf="pautas && pautas.length > 0; else noPautas">
+      <p class="list-pautas__title">Lista de Pautas</p>
+      <div class="list-pautas__cards">
+        <div class="list-pautas__cards__card" *ngFor="let pauta of pautas">
+          <p class="list-pautas__cards__card__title">{{ pauta.titulo }}</p>
+          <p class="list-pautas__cards__card__description">
+            {{ pauta.descricao }}
+          </p>
+          <div class="list-pautas__cards__card__buttons">
+            <button class="list-pautas__cards__card__buttons__details">
+              Detalhes
+            </button>
+            <button class="list-pautas__cards__card__buttons__delete">
+              Excluir
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <mat-paginator
-      [pageSize]="pageSize"
-      [pageSizeOptions]="[6, 50, 100]"
-      (page)="onPageChange($event)"
-      aria-label="Select page"
-      [length]="totalPautas"
-    >
-    </mat-paginator>
+
+      <mat-paginator
+        *ngIf="pautas && pautas.length > 0"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[6, 50, 100]"
+        (page)="onPageChange($event)"
+        aria-label="Select page"
+        [length]="totalPautas"
+      >
+      </mat-paginator>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #noPautas>
+  <div class="pauta-indisponivel">
+    <p class="pauta-indisponivel__title">Pautas indisponíveis.</p>
+    <p class="pauta-indisponivel__title">
+      Peça para o administrador cadastrar uma pauta
+    </p>
+    <div class="pauta-indisponivel__button">
+      <a href="/cadastrar-pauta" class="pauta-indisponivel__button__link">
+        Criar Pauta
+      </a>
+    </div>
+  </div>
+</ng-template>

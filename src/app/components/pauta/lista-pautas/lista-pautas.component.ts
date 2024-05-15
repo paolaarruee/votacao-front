@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { PautaService } from 'src/app/core/services/pauta.service';
+import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
 
 @Component({
