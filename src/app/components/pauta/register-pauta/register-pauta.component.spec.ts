@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RegisterPautaComponent } from './register-pauta.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PautaService } from 'src/app/core/services/pauta/pauta.service';
@@ -7,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Componente RegisterPauta', () => {
   let component: RegisterPautaComponent;
@@ -21,7 +22,12 @@ describe('Componente RegisterPauta', () => {
 
     await TestBed.configureTestingModule({
       declarations: [RegisterPautaComponent],
-      imports: [ReactiveFormsModule],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule,
+      ],
       providers: [{ provide: PautaService, useValue: pautaService }],
     }).compileComponents();
   });

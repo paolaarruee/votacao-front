@@ -1,16 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { ListaPautasComponent } from './lista-pautas/lista-pautas.component';
 import { RegisterPautaComponent } from './register-pauta/register-pauta.component';
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DetalhesComponent } from './lista-pautas/detalhes/detalhes.component';
+import { ExclusaoPautaComponent } from './lista-pautas/exclusao-pauta/exclusao-pauta.component';
 
 @NgModule({
-  declarations: [HomeComponent, ListaPautasComponent, RegisterPautaComponent],
+  declarations: [
+    HomeComponent,
+    ListaPautasComponent,
+    RegisterPautaComponent,
+    DetalhesComponent,
+    ExclusaoPautaComponent,
+  ],
   imports: [
     CommonModule,
     MatCardModule,
@@ -18,8 +27,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
+    MatDialogModule,
   ],
 
-  exports: [HomeComponent, ListaPautasComponent, RegisterPautaComponent],
+  exports: [
+    HomeComponent,
+    ListaPautasComponent,
+    RegisterPautaComponent,
+    DetalhesComponent,
+    ExclusaoPautaComponent,
+  ],
 })
 export class PautaModule {}

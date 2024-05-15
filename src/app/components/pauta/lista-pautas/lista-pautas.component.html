@@ -9,10 +9,16 @@
             {{ pauta.descricao }}
           </p>
           <div class="list-pautas__cards__card__buttons">
-            <button class="list-pautas__cards__card__buttons__details">
+            <button
+              class="list-pautas__cards__card__buttons__details"
+              (click)="openDetalhesDialog(pauta.id)"
+            >
               Detalhes
             </button>
-            <button class="list-pautas__cards__card__buttons__delete">
+            <button
+              class="list-pautas__cards__card__buttons__delete"
+              (click)="openConfirmacaoExclusaoDialog()"
+            >
               Excluir
             </button>
           </div>

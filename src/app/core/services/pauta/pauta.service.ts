@@ -13,6 +13,10 @@ export class PautaService {
 
   constructor(private http: HttpClient) {}
 
+  getSessaoVotacao(pautaId: number): Observable<SessaoVotacao> {
+    return this.http.get<SessaoVotacao>(`${this.baseUrl}sessao/${pautaId}`);
+  }
+
   getPautas(
     page: number,
     limit: number
@@ -26,6 +30,27 @@ export class PautaService {
       .pipe(
         map((response) => ({
           pautas: response.body as Pauta[],
+          totalCount: Number(response.headers.get('x-total-count')),
+        }))
+      );
+  }
+
+  getSessoes(
+    page: number,
+    limit: number
+  ): Observable<{ sessoes: SessaoVotacao[]; totalCount: number }> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http
+      .get<SessaoVotacao[]>(
+        `${this.baseUrl}sessoes?page=${page}&limit=${limit}`,
+        {
+          headers,
+          observe: 'response',
+        }
+      )
+      .pipe(
+        map((response) => ({
+          sessoes: response.body as SessaoVotacao[],
           totalCount: Number(response.headers.get('x-total-count')),
         }))
       );
