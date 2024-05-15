@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ListaPautasComponent } from './lista-pautas.component';
 import { of } from 'rxjs';
-import { PautaService } from 'src/app/core/services/pauta.service';
+import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

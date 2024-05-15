@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { PautaService } from 'src/app/core/services/pauta.service';
+import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
 import { switchMap } from 'rxjs/operators';
+import { ToastService } from 'src/app/core/services/toast/toast.service';
 
 @Component({
   selector: 'app-register-pauta',
@@ -11,7 +12,10 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./register-pauta.component.scss'],
 })
 export class RegisterPautaComponent {
-  constructor(private pautaService: PautaService) {}
+  constructor(
+    private pautaService: PautaService,
+    private toastService: ToastService
+  ) {}
 
   registerPauta = new FormGroup({
     id: new FormControl(''),
@@ -39,8 +43,16 @@ export class RegisterPautaComponent {
           const idPauta: number = novaPauta.id;
           const dataInicioValue = this.registerPauta.get('dataInicio')?.value;
           const dataInicioFormatted = dataInicioValue
-          ? new Date(dataInicioValue).toISOString().replace('T', ' ').replace('Z', '').slice(0, 19)
-          : new Date().toISOString().replace('T', ' ').replace('Z', '').slice(0, 19);
+            ? new Date(dataInicioValue)
+                .toISOString()
+                .replace('T', ' ')
+                .replace('Z', '')
+                .slice(0, 19)
+            : new Date()
+                .toISOString()
+                .replace('T', ' ')
+                .replace('Z', '')
+                .slice(0, 19);
           const duracaoMinutosValue =
             this.registerPauta.get('duracaoMinutos')?.value;
 
@@ -55,13 +67,13 @@ export class RegisterPautaComponent {
           return this.pautaService.createSessao(idPauta, novaSessao);
         })
       )
-      .subscribe(
-        (sessaoCriada: SessaoVotacao) => {
-          console.log('Sessão de votação criada com sucesso:', sessaoCriada);
+      .subscribe({
+        next: () => {
+          this.toastService.showMessage('Sessão de votação criada com sucesso');
         },
-        (error) => {
-          console.error('Erro ao criar sessão de votação:', error);
-        }
-      );
+        error: () => {
+          this.toastService.showMessage('Erro ao criar sessão de votação');
+        },
+      });
   }
 }

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterPautaComponent } from './register-pauta.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { PautaService } from 'src/app/core/services/pauta.service';
+import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { Pauta } from 'src/app/shared/interfaces/pauta';
