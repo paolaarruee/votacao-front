@@ -1,0 +1,70 @@
+.container {
+  padding: 20px;
+  background-color: #221f52;
+
+  .modal {
+    &__title {
+      font-size: 24px;
+      text-align: center;
+      color: #ffff;
+      font-weight: 600;
+      font-family: "Montserrat";
+    }
+
+    &__date,
+    &__votos {
+      font-size: 18px;
+      text-align: center;
+      color: #ffff;
+      font-weight: 400;
+      font-family: "Montserrat";
+    }
+
+    &__button {
+      margin-top: 20px;
+
+      &__vote,
+      &__cancel {
+        width: 95px;
+        height: 25px;
+        border-radius: 4px;
+
+        cursor: pointer;
+      }
+
+      &__cancel {
+        background-color: #fff;
+        border: 1px solid #ffff;
+        color: #221f52;
+      }
+
+      &__vote {
+        background-color: #ed0973;
+        border: 1px solid #ed0973;
+        color: #fff;
+        margin-left: 20px;
+      }
+
+      &__vote:hover {
+        background-color: #fff;
+        border: 1px solid #fff;
+        color: #221f52;
+      }
+    }
+  }
+
+  .sessao-terminada {
+    border: #ccc solid 1px;
+    background-color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 470px) {
+  .container {
+    .modal {
+      width: 230px;
+    }
+  }
+}

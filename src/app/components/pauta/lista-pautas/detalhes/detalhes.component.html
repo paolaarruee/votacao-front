@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="modal">
+    <ng-container *ngIf="sessaoVotacao">
+      <p class="modal__title">{{ sessaoVotacao.nomeSessao }}</p>
+      <p class="modal__date">
+        Data de Início:
+        {{ sessaoVotacao.dataInicio | date : "dd/MM/yyyy HH:mm:ss" }}
+      </p>
+
+      <p class="modal__date">
+        Data Termino:
+        {{ sessaoVotacao.dataTermino | date : "dd/MM/yyyy HH:mm:ss" }}
+      </p>
+      <p class="modal__votos">Quantidade de votos: {{ sessaoVotacao.votos }}</p>
+    </ng-container>
+    <mat-dialog-actions align="center">
+      <div class="modal__button">
+        <button class="modal__button__cancel" mat-dialog-close>Cancelar</button>
+        <button
+          class="modal__button__vote"
+          (click)="openvotacaoDialog(data.pautaId)"
+          [ngClass]="{ 'sessao-terminada': sessaoTerminada() }"
+          mat-dialog-close
+        >
+          Votar
+        </button>
+      </div>
+    </mat-dialog-actions>
+  </div>
+</div>

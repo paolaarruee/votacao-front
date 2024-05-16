@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="form">
+    <p class="form__title">Votar</p>
+    <div class="form__register">
+      <form [formGroup]="registerVoto">
+        <input
+          id="opcao"
+          class="form__register__input"
+          type="radio"
+          formControlName="opcao"
+          value="sim"
+        />
+        <label class="form__register__label" for="opcao">SIM</label>
+
+        <input
+          id="opcao"
+          class="form__register__input"
+          type="radio"
+          formControlName="opcao"
+          class="form__register__label"
+          value="nao"
+        />
+        <label for="opcao" class="form__register__label">NÃO</label>
+      </form>
+    </div>
+    <mat-dialog-actions align="center">
+      <div class="form__button">
+        <button class="form__button__cancel" mat-dialog-close>Cancelar</button>
+        <button
+          class="form__button__submit"
+          type="submit"
+          (click)="onSubmit()"
+          mat-dialog-close
+        >
+          Votar
+        </button>
+      </div>
+    </mat-dialog-actions>
+  </div>
+</div>

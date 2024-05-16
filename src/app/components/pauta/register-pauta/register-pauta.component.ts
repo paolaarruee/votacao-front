@@ -37,9 +37,7 @@ export class RegisterPautaComponent {
     this.pautaService
       .createPauta(novaPauta)
       .pipe(
-        switchMap((pautaCriada: Pauta) => {
-          console.log('Pauta criada com sucesso:', pautaCriada);
-
+        switchMap(() => {
           const idPauta: number = novaPauta.id;
           const dataInicioValue = this.registerPauta.get('dataInicio')?.value;
           const dataInicioFormatted = dataInicioValue
