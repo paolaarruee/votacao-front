@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DetalhesComponent } from './lista-pautas/detalhes/detalhes.component';
 import { ExclusaoPautaComponent } from './lista-pautas/exclusao-pauta/exclusao-pauta.component';
+import { VotosComponent } from './lista-pautas/detalhes/votos/votos.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ExclusaoPautaComponent } from './lista-pautas/exclusao-pauta/exclusao-p
     RegisterPautaComponent,
     DetalhesComponent,
     ExclusaoPautaComponent,
+    VotosComponent,
   ],
   imports: [
     CommonModule,

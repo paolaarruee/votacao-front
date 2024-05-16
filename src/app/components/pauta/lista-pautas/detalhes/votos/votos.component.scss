@@ -1,0 +1,85 @@
+.container {
+  background-color: #221f52;
+
+  padding: 40px;
+
+  .form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__title {
+      color: #ffff;
+      font-size: 32px;
+      font-family: "Montserrat";
+      font-weight: 700;
+    }
+
+    &__register {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &__input {
+        margin-top: 20px;
+        color: #ffff;
+        font-family: "Montserrat";
+      }
+
+      &__label {
+        color: #ffff;
+        font-family: "Montserrat";
+        margin-left: 10px;
+      }
+    }
+
+    &__button {
+      margin-top: 20px;
+
+      &__submit,
+      &__cancel {
+        width: 95px;
+        height: 25px;
+        border-radius: 4px;
+
+        cursor: pointer;
+      }
+
+      &__cancel {
+        background-color: #fff;
+        border: 1px solid #ffff;
+        color: #221f52;
+      }
+
+      &__submit {
+        background-color: #ed0973;
+        border: 1px solid #ed0973;
+        color: #fff;
+        margin-left: 20px;
+      }
+
+      &__submit:hover {
+        background-color: #fff;
+        border: 1px solid #fff;
+        color: #ed0973;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 25px;
+    .form {
+      &__register {
+        &__button {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

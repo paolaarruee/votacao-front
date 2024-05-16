@@ -5,7 +5,12 @@ import {
   tick,
 } from '@angular/core/testing';
 import { DetalhesComponent } from './detalhes.component';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
@@ -14,6 +19,7 @@ describe('DetalhesComponent', () => {
   let component: DetalhesComponent;
   let fixture: ComponentFixture<DetalhesComponent>;
   let mockPautaService: jasmine.SpyObj<PautaService>;
+  let dialog: MatDialog;
 
   beforeEach(async () => {
     mockPautaService = jasmine.createSpyObj('PautaService', [
@@ -26,6 +32,8 @@ describe('DetalhesComponent', () => {
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: { pautaId: 123 } },
         { provide: PautaService, useValue: mockPautaService },
+        { provide: MatDialogRef, useValue: {} }, // Provide a mock MatDialogRef
+        MatDialog, // Add MatDialog to providers
       ],
     }).compileComponents();
   });
@@ -33,6 +41,7 @@ describe('DetalhesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DetalhesComponent);
     component = fixture.componentInstance;
+    dialog = TestBed.inject(MatDialog); // Inject MatDialog
   });
 
   it('should create', () => {
@@ -57,4 +66,13 @@ describe('DetalhesComponent', () => {
     expect(mockPautaService.getSessaoVotacao).toHaveBeenCalledWith(123);
     expect(component.sessaoVotacao).toEqual(mockSessaoVotacao);
   }));
+
+  it('Deve abrir o dialog', () => {
+    spyOn(dialog, 'open');
+    const button = fixture.debugElement.nativeElement.querySelector(
+      '.modal__button__vote'
+    );
+    button.click();
+    expect(dialog.open).toHaveBeenCalled();
+  });
 });

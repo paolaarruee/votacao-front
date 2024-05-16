@@ -16,7 +16,12 @@
     <mat-dialog-actions align="center">
       <div class="modal__button">
         <button class="modal__button__cancel" mat-dialog-close>Cancelar</button>
-        <button class="modal__button__vote" [ngClass]="{ 'sessao-terminada': sessaoTerminada() }">
+        <button
+          class="modal__button__vote"
+          (click)="openvotacaoDialog(data.pautaId)"
+          [ngClass]="{ 'sessao-terminada': sessaoTerminada() }"
+          mat-dialog-close
+        >
           Votar
         </button>
       </div>

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
+import { VotosComponent } from './votos/votos.component';
 
 @Component({
   selector: 'app-detalhes',
@@ -14,7 +15,7 @@ export class DetalhesComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-
+    public dialog: MatDialog,
     private pautaService: PautaService
   ) {
     this.pautaId = data.pautaId;
@@ -45,5 +46,11 @@ export class DetalhesComponent implements OnInit {
       new Date(this.sessaoVotacao.dataTermino) < new Date();
 
     return sessaoTerminada;
+  }
+
+  openvotacaoDialog(pautaId: number) {
+    this.dialog.open(VotosComponent, {
+      data: {id: this.data.pautaId},
+    });
   }
 }
