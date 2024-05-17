@@ -1,1 +1,58 @@
-<p>register-users works!</p>
+<div class="container">
+  <div class="form">
+    <div>
+      <h1 class="form__title">Cadastro</h1>
+    </div>
+    <div class="form__register">
+      <form class="form__register">
+        <label for="nome" class="form__register__label">Nome: </label>
+        <input
+          class="form__register__input"
+          id="nome"
+          type="text"
+          formControlName="nome"
+        />
+
+        <label for="cpf" class="form__register__label">Cpf: </label>
+        <input
+          class="form__register__input"
+          id="cpf"
+          type="text"
+          formControlName="cpf"
+        />
+
+        <label for="email" class="form__register__label">Email: </label>
+        <input
+          class="form__register__input"
+          id="email"
+          type="text"
+          formControlName="email"
+        />
+
+        <label for="senha" class="form__register__label">Senha: </label>
+        <input
+          class="form__register__input-date"
+          id="senha"
+          type="password"
+          formControlName="senha"
+        />
+
+        <label for="admin" class="form__register__label">Admin </label>
+        <input
+          class="form__register__input"
+          id="admin"
+          type="text"
+          formControlName="admin"
+        />
+      </form>
+    </div>
+    <button
+      class="form__button"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!registerPauta.valid"
+    >
+      Enviar
+    </button>
+  </div>
+</div>

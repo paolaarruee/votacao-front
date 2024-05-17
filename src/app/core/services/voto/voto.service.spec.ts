@@ -31,7 +31,7 @@ describe('VotoService', () => {
 
   it('deve enviar o voto com sucesso', () => {
     const mockIdSessao = 1;
-    const mockOpcao = 'A';
+    const mockOpcao = 'sim';
 
     const mockResponse: Votos = {
       id: 1,
@@ -49,5 +49,41 @@ describe('VotoService', () => {
     );
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
+  });
+  it('deve retornar sessões com sucesso', () => {
+    const mockPage = 1;
+    const mockLimit = 10;
+
+    const mockResponse: Votos[] = [
+      {
+        id: 1,
+        sessaoId: 100,
+        userCpf: '1111111111',
+        opcao: 'sim',
+      },
+      {
+        id: 2,
+        sessaoId: 101,
+        userCpf: '2222222222',
+        opcao: 'não',
+      },
+    ];
+
+    const mockTotalCount = 2;
+
+    service.getSessoes(mockPage, mockLimit).subscribe((response) => {
+      expect(response.sessoes).toEqual(mockResponse);
+      expect(response.totalCount).toEqual(mockTotalCount);
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.API_URL}votos?page=${mockPage}&limit=${mockLimit}`
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(mockResponse, {
+      headers: {
+        'x-total-count': mockTotalCount.toString(),
+      },
+    });
   });
 });

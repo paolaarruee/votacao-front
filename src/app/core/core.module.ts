@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from '../app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthenticationInterceptor } from './interceptors/authentication/authentication.interceptor';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -14,6 +15,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppRoutingModule,
     HttpClientModule,
     MatSnackBarModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    },
   ],
   exports: [NavbarComponent],
 })

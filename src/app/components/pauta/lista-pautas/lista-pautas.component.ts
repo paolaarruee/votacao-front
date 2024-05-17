@@ -37,8 +37,6 @@ export class ListaPautasComponent implements OnInit {
         this.pautaService
           .getSessoes(this.pageIndex + 1, this.pageSize)
           .subscribe((sessoesData) => {
-            console.log(data);
-
             const sessoesArray = sessoesData.sessoes;
             const pautasComSessoesAtivas = data.pautas.filter((pauta) =>
               this.hasActiveSessao(pauta.id, sessoesArray)
