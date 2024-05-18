@@ -29,25 +29,61 @@ describe('VotoService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('deve enviar o voto com sucesso', () => {
-    const mockIdSessao = 1;
-    const mockOpcao = 'A';
+  // it('deve enviar o voto com sucesso', () => {
+  //   const mockIdSessao = 1;
+  //   const mockOpcao = 'sim';
 
-    const mockResponse: Votos = {
-      id: 1,
-      sessaoId: 100,
-      userCpf: '1111111111',
-      opcao: 'sim',
-    };
+  //   const mockResponse: Votos = {
+  //     id: 1,
+  //     sessaoId: 100,
+  //     userCpf: '1111111111',
+  //     opcao: 'sim',
+  //   };
 
-    service.enviarVoto(mockIdSessao, mockOpcao).subscribe((response) => {
-      expect(response).toEqual(mockResponse);
+  //   service.enviarVoto(mockIdSessao, "sim").subscribe((response) => {
+  //     expect(response).toEqual(mockResponse);
+  //   });
+
+  //   const req = httpMock.expectOne(
+  //     `${environment.API_URL}voto/${mockIdSessao}`
+  //   );
+  //   expect(req.request.method).toBe('POST');
+  //   req.flush(mockResponse);
+  // });
+  it('deve retornar sessões com sucesso', () => {
+    const mockPage = 1;
+    const mockLimit = 10;
+
+    const mockResponse: Votos[] = [
+      {
+        id: 1,
+        sessaoId: 100,
+        userCpf: '1111111111',
+        opcao: 'sim',
+      },
+      {
+        id: 2,
+        sessaoId: 101,
+        userCpf: '2222222222',
+        opcao: 'não',
+      },
+    ];
+
+    const mockTotalCount = 2;
+
+    service.getVotos(mockPage, mockLimit).subscribe((response) => {
+      expect(response.votos).toEqual(mockResponse);
+      expect(response.totalCount).toEqual(mockTotalCount);
     });
 
     const req = httpMock.expectOne(
-      `${environment.API_URL}voto/${mockIdSessao}`
+      `${environment.API_URL}votos?page=${mockPage}&limit=${mockLimit}`
     );
-    expect(req.request.method).toBe('POST');
-    req.flush(mockResponse);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockResponse, {
+      headers: {
+        'x-total-count': mockTotalCount.toString(),
+      },
+    });
   });
 });

@@ -34,7 +34,14 @@
             <a
               class="menu__nav__navigation__list__item__name"
               routerLink="/entrar"
+              *ngIf="!isAuthenticated"
               >Entrar</a
+            >
+            <a
+              (click)="logout()"
+              *ngIf="isAuthenticated"
+              class="menu__nav__navigation__list__item__name"
+              >Logout</a
             >
           </li>
         </ul>

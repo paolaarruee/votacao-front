@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="container">
+  <div class="form">
+    <p class="form__title">Login</p>
+    <form [formGroup]="loginForm" class="form__login">
+      <div>
+        <label for="cpf" class="form__login__label__cpf">CPF:</label>
+        <input
+          type="text"
+          id="cpf"
+          formControlName="cpf"
+          class="form__login__input__cpf"
+        />
+        <div
+          *ngIf="loginForm.get('cpf')?.invalid && loginForm.get('cpf')?.touched"
+        >
+          CPF é obrigatório
+        </div>
+      </div>
+
+      <div>
+        <label for="senha" class="form__login__label_senha">Senha:</label>
+        <input
+          type="password"
+          minlength="6"
+          id="senha"
+          formControlName="senha"
+          class="form__login__input__senha"
+        />
+        <div
+          *ngIf="
+            loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched
+          "
+        >
+          Senha é obrigatória
+        </div>
+      </div>
+    </form>
+    <div class="form__register">
+      <a href="/cadastrar" class="form__register__name">Cadastrar</a>
+    </div>
+
+    <button class="form__button" type="submit" (click)="onSubmit()">
+      Entrar
+    </button>
+  </div>
+</div>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { switchMap } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
-import { UsersService } from 'src/app/core/services/user/users.service';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
-import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
+import { UsersService } from 'src/app/core/services/users.service';
+import { Users } from 'src/app/shared/interfaces/users';
 
 @Component({
   selector: 'app-register-users',
@@ -12,66 +11,57 @@ import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
   styleUrls: ['./register-users.component.scss'],
 })
 export class RegisterUsersComponent {
-  constructor(
-    private registerUser: UsersService,
-    private toastService: ToastService
-  ) {}
+  registerUser: FormGroup;
 
-  registerPauta = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl(''),
-    cpf: new FormControl(''),
-    email: new FormControl(''),
-    senha: new FormControl(''),
-    admin: new FormControl(''),
-  });
+  constructor(
+    private userService: UsersService,
+    private authService: AuthenticationService,
+    private toastService: ToastService
+  ) {
+    this.registerUser = new FormGroup({
+      nome: new FormControl('', Validators.required),
+      cpf: new FormControl('', [
+        Validators.required,
+        Validators.minLength(11),
+        Validators.maxLength(11),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      senha: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+      admin: new FormControl(false),
+    });
+  }
+
+  public get isAdmin(): boolean {
+    console.log(this.authService.isAdmin());
+    return this.authService.isAdmin();
+  }
 
   onSubmit() {
-    const novaPauta: Pauta = {
-      id: Math.floor(Math.random() * 1000),
-      titulo: this.registerPauta.get('titulo')?.value ?? '',
-      descricao: this.registerPauta.get('descricao')?.value ?? '',
-    };
+    if (this.registerUser.valid) {
+      const user: Users = this.registerUser.value;
 
-    // this.registerUser
-    //   .createPauta(novaPauta)
-    //   .pipe(
-    //     switchMap(() => {
-    //       const idPauta: number = novaPauta.id;
-    //       const dataInicioValue = this.registerPauta.get('dataInicio')?.value;
-    //       const dataInicioFormatted = dataInicioValue
-    //         ? new Date(dataInicioValue)
-    //             .toISOString()
-    //             .replace('T', ' ')
-    //             .replace('Z', '')
-    //             .slice(0, 19)
-    //         : new Date()
-    //             .toISOString()
-    //             .replace('T', ' ')
-    //             .replace('Z', '')
-    //             .slice(0, 19);
-    //       const duracaoMinutosValue =
-    //         this.registerPauta.get('duracaoMinutos')?.value;
+      if (!this.authService.isAdmin()) {
+        user.admin = false;
+      }
 
-    //       const novaSessao: SessaoVotacao = {
-    //         pautaId: idPauta,
-    //         nomeSessao: this.registerPauta.get('nomeSessao')?.value ?? '',
-    //         dataInicio: dataInicioFormatted,
-    //         duracaoMinutos: duracaoMinutosValue
-    //           ? parseInt(duracaoMinutosValue)
-    //           : 0,
-    //       };
-    //       return this.registerUser.createSessao(idPauta, novaSessao);
-    // })
-    // )
-    // .subscribe({
-    //   next: () => {
-    //     this.toastService.showMessage('Sessão de votação criada com sucesso');
-    //   },
-    //   error: () => {
-    //     this.toastService.showMessage('Erro ao criar sessão de votação');
-    //   },
-    // });
-    return true;
+      this.userService.createPauta(user).subscribe(
+        () => {
+          this.toastService.showMessage('Usuário cadastrado com sucesso!');
+          this.registerUser.reset();
+        },
+        (error) => {
+          this.toastService.showMessage(
+            'Erro ao cadastrar usuário: ' + error.message
+          );
+        }
+      );
+    } else {
+      this.toastService.showMessage(
+        'Por favor, preencha todos os campos corretamente.'
+      );
+    }
   }
 }

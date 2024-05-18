@@ -1,8 +1,8 @@
 export interface Users {
-  id: number;
+  id?: number;
   cpf: string;
-  nome: string;
+  nome?: string;
   senha: string;
-  email: string;
-  admin: boolean;
+  email?: string;
+  admin?: boolean;
 }
