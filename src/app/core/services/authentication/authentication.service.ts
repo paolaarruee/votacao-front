@@ -5,6 +5,7 @@ import { Observable, pipe, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { AccessToken } from 'src/app/shared/interfaces/auth';
 import { Users } from 'src/app/shared/interfaces/users';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,16 @@ export class AuthenticationService {
   public logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this.router.navigateByUrl('/entrar');
+  }
+
+  public isAdmin(): boolean {
+    const token = this.token;
+    if (token) {
+      const decodedToken: any = jwt_decode.jwtDecode(token) as { role: number };
+      return decodedToken.admin === 1;
+    }
+
+    return false;
   }
 
   public get isAuthenticated(): boolean {

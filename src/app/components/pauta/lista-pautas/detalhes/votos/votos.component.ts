@@ -55,7 +55,7 @@ export class VotosComponent implements OnInit {
           this.getVotos();
         },
         (error) => {
-          this.toastService.showMessage('Erro ao enviar voto:', error);
+          this.toastService.showMessage('Erro ao enviar voto:');
         }
       );
     } else {

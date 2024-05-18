@@ -1,11 +1,12 @@
 <div class="container">
   <div class="form">
-    <div>
-      <h1 class="form__title">Cadastro</h1>
+    <div class="form__title">
+      <p class="form__title">Cadastro de Usuários</p>
     </div>
+
     <div class="form__register">
-      <form class="form__register">
-        <label for="nome" class="form__register__label">Nome: </label>
+      <form class="form__register" [formGroup]="registerUser">
+        <label for="nome" class="form__register__label">Nome </label>
         <input
           class="form__register__input"
           id="nome"
@@ -13,7 +14,7 @@
           formControlName="nome"
         />
 
-        <label for="cpf" class="form__register__label">Cpf: </label>
+        <label for="cpf" class="form__register__label">CPF </label>
         <input
           class="form__register__input"
           id="cpf"
@@ -21,7 +22,7 @@
           formControlName="cpf"
         />
 
-        <label for="email" class="form__register__label">Email: </label>
+        <label for="email" class="form__register__label">Email </label>
         <input
           class="form__register__input"
           id="email"
@@ -29,30 +30,48 @@
           formControlName="email"
         />
 
-        <label for="senha" class="form__register__label">Senha: </label>
+        <label for="senha" class="form__register__label">Senha </label>
         <input
-          class="form__register__input-date"
+          class="form__register__input"
           id="senha"
           type="password"
           formControlName="senha"
         />
 
-        <label for="admin" class="form__register__label">Admin </label>
-        <input
-          class="form__register__input"
-          id="admin"
-          type="text"
-          formControlName="admin"
-        />
+        <ng-container *ngIf="isAdmin">
+          <p class="form__register__title-radio">
+            Deseja cadastrar um administrador?
+          </p>
+
+          <div class="form__register__radio">
+            <label class="form__register__radio__label" for="opcao">Sim</label>
+            <input
+              id="admin"
+              class="form__register__radio__input"
+              type="radio"
+              formControlName="admin"
+              value="1"
+            />
+
+            <label for="opcao" class="form__register__radio__label">Não</label>
+            <input
+              id="admin"
+              class="form__register__radio__input"
+              type="radio"
+              formControlName="admin"
+              value="0"
+            />
+          </div>
+        </ng-container>
       </form>
     </div>
     <button
       class="form__button"
       type="submit"
       (click)="onSubmit()"
-      [disabled]="!registerPauta.valid"
+      [disabled]="!registerUser.valid"
     >
-      Enviar
+      Cadastrar
     </button>
   </div>
 </div>
