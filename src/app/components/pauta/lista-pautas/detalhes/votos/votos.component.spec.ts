@@ -1,10 +1,12 @@
-import { TestBed } from '@angular/core/testing';
-import { VotosComponent } from './votos.component';
-import { VotoService } from 'src/app/core/services/voto/voto.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
+import { VotoService } from 'src/app/core/services/voto/voto.service';
+import { VotosComponent } from './votos.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('VotosComponent', () => {
   let component: VotosComponent;
@@ -13,7 +15,13 @@ describe('VotosComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VotosComponent],
-      imports: [HttpClientTestingModule, MatSnackBarModule],
+      imports: [
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+      ],
       providers: [
         VotoService,
         { provide: MAT_DIALOG_DATA, useValue: { id: 1 } },
@@ -30,16 +38,17 @@ describe('VotosComponent', () => {
   });
 
   it('deve enviar voto quando onSubmit for chamado', () => {
+    const userCpf = '111111111'; // Defina o valor do userCpf aqui
     spyOn(votoService, 'enviarVoto').and.returnValue(
-      of({ opcao: 'sim', sessaoId: 1, userCpf: '111111111', id: 1 })
+      of({ opcao: 'sim', sessaoId: 1, userCpf: userCpf, id: 1 })
     );
 
-    component.registerVoto.patchValue({ opcao: 'sim' });
+    component.registerVoto.patchValue({ opcao: 'sim', userCpf: userCpf });
     component.onSubmit();
 
     expect(votoService.enviarVoto).toHaveBeenCalledWith(1, {
       opcao: 'sim',
-      userCpf: '111111111',
+      userCpf: userCpf,
     });
   });
 });

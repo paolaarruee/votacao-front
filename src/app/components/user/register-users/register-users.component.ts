@@ -1,19 +1,9 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { switchMap } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
 import { UsersService } from 'src/app/core/services/users.service';
 import { Users } from 'src/app/shared/interfaces/users';
-=======
-import { FormGroup, FormControl } from '@angular/forms';
-import { switchMap } from 'rxjs';
-import { ToastService } from 'src/app/core/services/toast/toast.service';
-import { UsersService } from 'src/app/core/services/user/users.service';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
-import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
->>>>>>> main
 
 @Component({
   selector: 'app-register-users',
