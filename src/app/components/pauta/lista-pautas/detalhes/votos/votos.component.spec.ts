@@ -4,8 +4,7 @@ import { VotoService } from 'src/app/core/services/voto/voto.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('VotosComponent', () => {
   let component: VotosComponent;
@@ -14,7 +13,7 @@ describe('VotosComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [VotosComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, MatSnackBarModule],
       providers: [
         VotoService,
         { provide: MAT_DIALOG_DATA, useValue: { id: 1 } },
@@ -38,18 +37,9 @@ describe('VotosComponent', () => {
     component.registerVoto.patchValue({ opcao: 'sim' });
     component.onSubmit();
 
-    expect(votoService.enviarVoto).toHaveBeenCalledWith(1, 'sim');
+    expect(votoService.enviarVoto).toHaveBeenCalledWith(1, {
+      opcao: 'sim',
+      userCpf: '111111111',
+    });
   });
-
-  // it('deve renderizar corretamente', async () => {
-  //   await render(VotosComponent, {
-  //     componentProperties: {
-  //       data: { id: 1 },
-  //     },
-  //   });
-
-  //   expect(screen.getByText('Votar')).toBeTruthy();
-  //   expect(screen.getByText('SIM')).toBeTruthy();
-  //   expect(screen.getByText('NÃO')).toBeTruthy();
-  // });
 });
