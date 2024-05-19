@@ -54,6 +54,23 @@
           type="number"
           formControlName="duracaoMinutos"
         />
+
+        <label for="categoria" class="form__register__label"
+          >Escolha uma categoria
+        </label>
+        <select
+          class="form__register__select"
+          id="categoria"
+          formControlName="categoria"
+        >
+          <option value="">Escolha uma categoria</option>
+          <option
+            *ngFor="let categoria of categorias"
+            [value]="categoria.value"
+          >
+            {{ categoria.value }}
+          </option>
+        </select>
       </form>
     </div>
     <button

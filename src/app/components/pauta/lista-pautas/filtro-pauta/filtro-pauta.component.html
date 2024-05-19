@@ -1,0 +1,16 @@
+<div class="filtro-pauta" [formGroup]="filtrosPauta">
+  <label>Categoria</label>
+  <select class="filtro-pauta__select" formControlName="categoria">
+    <option *ngFor="let categoria of categorias" [value]="categoria.value">
+      {{ categoria.label }}
+    </option>
+  </select>
+
+  <button
+    type="reset"
+    class="filtro-pauta__button"
+    (click)="filtrosPauta.reset();"
+  >
+    Limpar filtros
+  </button>
+</div>

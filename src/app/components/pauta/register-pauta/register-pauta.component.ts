@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PautaService } from 'src/app/core/services/pauta/pauta.service';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { CategoriaPauta, Pauta } from 'src/app/shared/interfaces/pauta';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
 import { switchMap } from 'rxjs/operators';
 import { ToastService } from 'src/app/core/services/toast/toast.service';
@@ -12,6 +12,11 @@ import { ToastService } from 'src/app/core/services/toast/toast.service';
   styleUrls: ['./register-pauta.component.scss'],
 })
 export class RegisterPautaComponent {
+  public categorias = Object.entries(CategoriaPauta).map(([value, label]) => ({
+    label,
+    value,
+  }));
+
   constructor(
     private pautaService: PautaService,
     private toastService: ToastService
@@ -25,6 +30,7 @@ export class RegisterPautaComponent {
     nomeSessao: new FormControl(''),
     dataInicio: new FormControl(''),
     duracaoMinutos: new FormControl(''),
+    categoria: new FormControl(''),
   });
 
   onSubmit() {
@@ -32,6 +38,8 @@ export class RegisterPautaComponent {
       id: Math.floor(Math.random() * 1000),
       titulo: this.registerPauta.get('titulo')?.value ?? '',
       descricao: this.registerPauta.get('descricao')?.value ?? '',
+      categoria: (this.registerPauta.get('categoria')?.value ??
+        '') as CategoriaPauta,
     };
 
     this.pautaService
