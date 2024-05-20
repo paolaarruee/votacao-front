@@ -13,7 +13,7 @@ import { CategoriaPauta, FiltrosPauta } from 'src/app/shared/interfaces/pauta';
 export class FiltroPautaComponent implements OnInit, OnDestroy {
   @Output() public filtrar: EventEmitter<FiltrosPauta> = new EventEmitter();
 
-  private filterChanges$?: Subscription;
+  public filterChanges$?: Subscription;
 
   public readonly categorias = Object.entries(CategoriaPauta).map(([label, value]) => ({
     label,

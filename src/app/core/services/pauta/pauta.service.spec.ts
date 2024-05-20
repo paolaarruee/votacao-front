@@ -4,7 +4,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { PautaService } from './pauta.service';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { CategoriaPauta, Pauta } from 'src/app/shared/interfaces/pauta';
 import { environment } from 'src/app/environments/environment';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
 
@@ -33,8 +33,18 @@ describe('PautaService', () => {
     const page = 1;
     const limit = 10;
     const mockPautas: Pauta[] = [
-      { id: 1, titulo: 'Pauta 1', descricao: 'Descricao Pauta 1' },
-      { id: 2, titulo: 'Pauta 2', descricao: 'Descricao Pauta 2' },
+      {
+        id: 1,
+        titulo: 'Pauta 1',
+        descricao: 'Descricao Pauta 1',
+        categoria: CategoriaPauta.CATEGORIA_1,
+      },
+      {
+        id: 2,
+        titulo: 'Pauta 2',
+        descricao: 'Descricao Pauta 2',
+        categoria: CategoriaPauta.CATEGORIA_1,
+      },
     ];
     const mockTotalCount = 20;
 
@@ -98,6 +108,7 @@ describe('PautaService', () => {
       id: 1,
       descricao: 'Nova Pauta',
       titulo: '',
+      categoria: CategoriaPauta.CATEGORIA_1,
     };
 
     service.createPauta(newPauta).subscribe((pauta) => {
@@ -133,6 +144,6 @@ describe('PautaService', () => {
     );
     expect(req.request.method).toBe('GET');
 
-    req.flush(mockSessaoVotacao); // Simula a resposta do servidor
+    req.flush(mockSessaoVotacao);
   });
 });
