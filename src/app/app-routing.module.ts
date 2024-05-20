@@ -10,8 +10,8 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'entrar', component: LoginComponent },
-  { path: 'cadastrar', component: RegisterUsersComponent },
-  { path: 'cadastrar-pauta', component: RegisterPautaComponent },
+  { path: 'cadastrar', component: RegisterUsersComponent, },
+  { path: 'cadastrar-pauta', component: RegisterPautaComponent, canActivate: [AuthGuard] },
   { path: 'lista-pautas', component: ListaPautasComponent },
 ];
 
