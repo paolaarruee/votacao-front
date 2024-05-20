@@ -1,5 +1,5 @@
 <div class="container">
-  <app-filtro-pauta (filtrar)="aplicarFiltros($event)"/>
+  <app-filtro-pauta (filtrar)="aplicarFiltros($event)" />
 
   <div class="list-pautas">
     <ng-container *ngIf="pautas && pautas.length > 0; else noPautas">
@@ -10,7 +10,7 @@
           <p class="list-pautas__cards__card__description">
             {{ pauta.descricao }}
           </p>
-          <p class="list-pautas__cards__card__title">{{ pauta.categoria }}</p>
+
           <div class="list-pautas__cards__card__buttons">
             <button
               class="list-pautas__cards__card__buttons__details"

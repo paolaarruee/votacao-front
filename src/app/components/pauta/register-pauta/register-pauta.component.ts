@@ -38,8 +38,7 @@ export class RegisterPautaComponent {
       id: Math.floor(Math.random() * 1000),
       titulo: this.registerPauta.get('titulo')?.value ?? '',
       descricao: this.registerPauta.get('descricao')?.value ?? '',
-      categoria: (this.registerPauta.get('categoria')?.value ??
-        '') as CategoriaPauta,
+      categoria: (this.registerPauta.get('categoria')?.value ?? '') as CategoriaPauta,
     };
 
     this.pautaService
@@ -65,6 +64,7 @@ export class RegisterPautaComponent {
           const novaSessao: SessaoVotacao = {
             pautaId: idPauta,
             nomeSessao: this.registerPauta.get('nomeSessao')?.value ?? '',
+            categoria: this.registerPauta.get('categoria')?.value ?? '',
             dataInicio: dataInicioFormatted,
             duracaoMinutos: duracaoMinutosValue
               ? parseInt(duracaoMinutosValue)
