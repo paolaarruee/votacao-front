@@ -1,8 +1,8 @@
 <div class="filtro-pauta" [formGroup]="filtrosPauta">
-  <label>Categoria</label>
+  <label class="filtro-pauta__label">Categoria</label>
   <select class="filtro-pauta__select" formControlName="categoria">
     <option *ngFor="let categoria of categorias" [value]="categoria.value">
-      {{ categoria.label }}
+      {{ categoria.value }}
     </option>
   </select>
 
