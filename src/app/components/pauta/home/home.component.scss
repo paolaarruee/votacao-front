@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+
+  .img {
+    width: 240px;
+    height: 400px;
+  }
+
+  .title {
+    margin-top: 50px;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: "Montserrat";
+    color: #221f52;
+  }
+}
