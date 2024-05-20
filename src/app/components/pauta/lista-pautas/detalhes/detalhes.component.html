@@ -2,6 +2,7 @@
   <div class="modal">
     <ng-container *ngIf="sessaoVotacao">
       <p class="modal__title">{{ sessaoVotacao.nomeSessao }}</p>
+      <p class="modal__votos">Categoria: {{ sessaoVotacao.categoria }}</p>
       <p class="modal__date">
         Data de Início:
         {{ sessaoVotacao.dataInicio | date : "dd/MM/yyyy HH:mm:ss" }}

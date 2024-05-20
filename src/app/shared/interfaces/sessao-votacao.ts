@@ -6,4 +6,5 @@ export interface SessaoVotacao {
   duracaoMinutos?: number;
   votos?: number;
   dataTermino?: string;
+  categoria?: string;
 }

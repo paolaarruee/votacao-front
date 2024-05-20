@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { FiltrosPauta, Pauta } from 'src/app/shared/interfaces/pauta';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
 
 @Injectable({
@@ -19,11 +19,20 @@ export class PautaService {
 
   getPautas(
     page: number,
-    limit: number
+    limit: number,
+    filtros?: FiltrosPauta
   ): Observable<{ pautas: Pauta[]; totalCount: number }> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let requestURL = `${this.baseUrl}pautas?page=${page}&limit=${limit}`;
+
+    const { categoria } = filtros || {};
+
+    if (categoria) {
+      requestURL = requestURL.concat(`&filter=${categoria}`);
+    }
+
     return this.http
-      .get<Pauta[]>(`${this.baseUrl}pautas?page=${page}&limit=${limit}`, {
+      .get<Pauta[]>(requestURL, {
         headers,
         observe: 'response',
       })
@@ -37,17 +46,23 @@ export class PautaService {
 
   getSessoes(
     page: number,
-    limit: number
+    limit: number,
+    filtros?: FiltrosPauta
   ): Observable<{ sessoes: SessaoVotacao[]; totalCount: number }> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let requestURL = `${this.baseUrl}sessoes?page=${page}&limit=${limit}`;
+
+    const { categoria } = filtros || {};
+
+    if (categoria) {
+      requestURL = requestURL.concat(`&filter=${categoria}`);
+    }
+
     return this.http
-      .get<SessaoVotacao[]>(
-        `${this.baseUrl}sessoes?page=${page}&limit=${limit}`,
-        {
-          headers,
-          observe: 'response',
-        }
-      )
+      .get<SessaoVotacao[]>(requestURL, {
+        headers,
+        observe: 'response',
+      })
       .pipe(
         map((response) => ({
           sessoes: response.body as SessaoVotacao[],

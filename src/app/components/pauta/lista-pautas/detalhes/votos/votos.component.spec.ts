@@ -38,7 +38,7 @@ describe('VotosComponent', () => {
   });
 
   it('deve enviar voto quando onSubmit for chamado', () => {
-    const userCpf = '111111111'; // Defina o valor do userCpf aqui
+    const userCpf = '111111111';
     spyOn(votoService, 'enviarVoto').and.returnValue(
       of({ opcao: 'sim', sessaoId: 1, userCpf: userCpf, id: 1 })
     );

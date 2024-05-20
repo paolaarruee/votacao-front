@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PautaService } from 'src/app/core/services/pauta/pauta.service';
-import { Pauta } from 'src/app/shared/interfaces/pauta';
+import { FiltrosPauta, Pauta } from 'src/app/shared/interfaces/pauta';
 import { DetalhesComponent } from './detalhes/detalhes.component';
 import { ExclusaoPautaComponent } from './exclusao-pauta/exclusao-pauta.component';
 import { SessaoVotacao } from 'src/app/shared/interfaces/sessao-votacao';
@@ -20,6 +20,7 @@ export class ListaPautasComponent implements OnInit {
   totalPautas: number = 0;
   pageSize: number = 6;
   pageIndex: number = 0;
+  filtros?: FiltrosPauta;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -30,12 +31,18 @@ export class ListaPautasComponent implements OnInit {
     this.getSessoes();
   }
 
+  public aplicarFiltros(filtros: FiltrosPauta): void {
+    this.filtros = filtros;
+    this.resetListagem();
+    this.getPautas();
+  }
+
   getPautas(): void {
     this.pautaService
-      .getPautas(this.pageIndex + 1, this.pageSize)
+      .getPautas(this.pageIndex + 1, this.pageSize, this.filtros)
       .subscribe((data) => {
         this.pautaService
-          .getSessoes(this.pageIndex + 1, this.pageSize)
+          .getSessoes(this.pageIndex + 1, this.pageSize, this.filtros)
           .subscribe((sessoesData) => {
             const sessoesArray = sessoesData.sessoes;
             const pautasComSessoesAtivas = data.pautas.filter((pauta) =>
@@ -60,7 +67,7 @@ export class ListaPautasComponent implements OnInit {
 
   getSessoes(): void {
     this.pautaService
-      .getSessoes(this.pageIndex + 1, this.pageSize)
+      .getSessoes(this.pageIndex + 1, this.pageSize, this.filtros)
       .subscribe((data) => {
         this.sessoes = data.sessoes;
         this.totalSessoes = data.totalCount;
@@ -83,5 +90,15 @@ export class ListaPautasComponent implements OnInit {
     this.dialog.open(ExclusaoPautaComponent, {
       data: {},
     });
+  }
+
+  private resetListagem(): void {
+    this.pautasAtivas = [];
+    this.pautas = [];
+    this.sessoes = [];
+    this.totalSessoes = 0;
+    this.totalPautas = 0;
+    this.pageSize = 6;
+    this.pageIndex = 0;
   }
 }

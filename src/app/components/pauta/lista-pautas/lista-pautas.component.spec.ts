@@ -6,6 +6,8 @@ import { PautaService } from 'src/app/core/services/pauta/pauta.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CategoriaPauta } from 'src/app/shared/interfaces/pauta';
+import { FiltroPautaComponent } from './filtro-pauta/filtro-pauta.component';
 
 describe('ListaPautasComponent', () => {
   let component: ListaPautasComponent;
@@ -25,7 +27,7 @@ describe('ListaPautasComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      declarations: [ListaPautasComponent],
+      declarations: [ListaPautasComponent, FiltroPautaComponent],
       imports: [MatPaginatorModule, BrowserAnimationsModule, MatDialogModule],
       providers: [{ provide: PautaService, useValue: pautaServiceSpyObj }],
     }).compileComponents();
@@ -54,9 +56,24 @@ describe('ListaPautasComponent', () => {
 
   it('deve filtrar pautas com base em sessoes ativas', () => {
     const mockPautas = [
-      { id: 1, titulo: 'Titulo da pauta 1', descricao: 'Descricao da pauta 1' },
-      { id: 2, titulo: 'Titulo da pauta 2', descricao: 'Descricao da pauta 2' },
-      { id: 3, titulo: 'Titulo da pauta 1', descricao: 'Descricao da pauta 3' },
+      {
+        id: 1,
+        titulo: 'Titulo da pauta 1',
+        descricao: 'Descricao da pauta 1',
+        categoria: CategoriaPauta.CATEGORIA_1,
+      },
+      {
+        id: 2,
+        titulo: 'Titulo da pauta 2',
+        descricao: 'Descricao da pauta 2',
+        categoria: CategoriaPauta.CATEGORIA_1,
+      },
+      {
+        id: 3,
+        titulo: 'Titulo da pauta 1',
+        descricao: 'Descricao da pauta 3',
+        categoria: CategoriaPauta.CATEGORIA_1,
+      },
     ];
     const now = new Date();
 
@@ -70,6 +87,7 @@ describe('ListaPautasComponent', () => {
         dataTermino: dataTermino.toISOString(),
         votos: 5,
         pautaId: 1,
+        categoria: CategoriaPauta.CATEGORIA_1,
       },
     ];
 

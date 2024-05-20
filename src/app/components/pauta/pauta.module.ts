@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DetalhesComponent } from './lista-pautas/detalhes/detalhes.component';
 import { ExclusaoPautaComponent } from './lista-pautas/exclusao-pauta/exclusao-pauta.component';
 import { VotosComponent } from './lista-pautas/detalhes/votos/votos.component';
+import { FiltroPautaComponent } from './lista-pautas/filtro-pauta/filtro-pauta.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { VotosComponent } from './lista-pautas/detalhes/votos/votos.component';
     DetalhesComponent,
     ExclusaoPautaComponent,
     VotosComponent,
+    FiltroPautaComponent,
   ],
   imports: [
     CommonModule,
